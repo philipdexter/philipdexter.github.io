@@ -26,4 +26,4 @@ anomalies being to decrease.
 Statistics could even be tracked per key, per replica, or per anything. This
 gives the user fine or coarse grained control.
 
-[^0]: [https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlshConsistency.html](https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlshConsistency.html)
+[^0]: [Cassandra Consistency](https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlshConsistency.html)
