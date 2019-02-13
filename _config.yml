@@ -1,1 +1,8 @@
+title: "Dexter's Blog"
+description: ""
+show_downlods: false
+
 theme: jekyll-theme-slate
+
+plugins:
+  - jekyll-feed
