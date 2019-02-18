@@ -42,3 +42,12 @@ a {
   color: #f2f8f9;
   text-shadow: #111 0px 0px 10px;
 }
+
+#toc_title {
+}
+#toc_container {
+  display: table;
+}
+#toc_container li, #toc_container ul, #toc_container ul li {
+  list-style: outside none none !important;
+}

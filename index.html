@@ -3,8 +3,65 @@ layout: default
 title: ''
 ---
 
+<div id="toc_container">
+  <h1 id="toc_title">Guide</h1>
+  <ul>
+    <li>
+      <h3>
+        Distributed Systems
+      </h3>
+    </li>
+    <ul>
+      <li>
+        <a href="#Reflective Consistency">
+          Reflective Consistency
+        </a>
+      </li>
+    </ul>
+    <li>
+      <h3>
+        Programming Languages
+      </h3>
+    </li>
+    <ul>
+      <li>
+        <a href="#Example of Type-Based Optimizations in Factor">
+          Example of Type-Based Optimizations in Factor
+        </a>
+      </li>
+      <li>
+        <a href="#A Short Guide to Adding a Keyword to Go">
+          A Short Guide to Adding a Keyword to Go
+        </a>
+      </li>
+      <li>
+        <a href="#A Short Guide to Creating Babel Plugins">
+          A Short Guide to Creating Babel Plugins
+        </a>
+      </li>
+    </ul>
+    <li>
+      <h3>
+        Approximate Computing
+      </h3>
+    </li>
+    <ul>
+      <li>
+        <a href="#Exploring Loop Perforation Opportunities in OCaml Programs">
+          Exploring Loop Perforation Opportunities in OCaml Programs
+        </a>
+      </li>
+      <li>
+        <a href="#The Difficulty in a General Approximate Computing Framework">
+          The Difficulty in a General Approximate Computing Framework
+        </a>
+      </li>
+    </ul>
+  </ul>
+</div>
+
 {% for post in site.posts %}
-<h1><a href={{ post.url }}> 	📎 </a>{{ post.title }}</h1>
+<h1><a id="{{ post.title }}" href={{ post.url }}> 	📎 </a>{{ post.title }}</h1>
   <p>{{ post.date | date_to_string }}</p>
 
   {{ post.content }}
