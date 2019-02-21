@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The Difficulty in a General Approximate Computing Framework
+jax: true
 ---
 
 Approximate computing is sacrificing accuracy in the hopes of reducing

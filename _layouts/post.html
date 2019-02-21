@@ -5,3 +5,16 @@ layout: default
 <p>{{ page.date | date_to_string }}</p>
 
 {{ content }}
+
+{% if page.jax %}
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [ ['$', '$'] ],
+  displayMath: [ ['$$', '$$'] ],
+  processEscapes: true,
+},
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+{% endif %}
