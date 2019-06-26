@@ -1,0 +1,4 @@
+
+recipes:
+  serve:
+    command: ["jekyll", "serve", "--watch"]
