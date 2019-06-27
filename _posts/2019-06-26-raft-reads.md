@@ -38,7 +38,7 @@ stale consistency level.
 
 There are potential problems in each consistency level of Consul.
 I believe there is room for a
-[reflective consistency](https://phfilip.com/2019/01/14/reflective.html)
+[reflective consistency]({% post_url 2019-01-14-reflective %})
 solution for users that can accept some level of anomalies.
 They would then be able to describe their ideal anomaly rate
 and the system would then adapt its consistency level to

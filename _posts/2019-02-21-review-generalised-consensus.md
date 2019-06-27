@@ -14,7 +14,8 @@ What caught my eye in this paper is this quote from the first page
 > allowing engineers the flexibility to choose their own trade-offs according
 > to the needs of their particular application and deployment environment.
 
-This jibes with the goal of [reflective consistency](#Reflective Consistency).
+This jibes with the goal of
+[reflective consistency]({% post_url 2019-01-14-reflective %}).
 Developers using reflective consistency can choose their own tradeoffs
 on the correctness/time curve.
 They can sacrifice the consistency of their system
