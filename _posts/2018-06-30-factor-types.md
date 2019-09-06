@@ -31,7 +31,7 @@ First, `add-untyped`:
 Very simple, this jumps to the generic word `+`
 which will dynamically dispatch to the appropriate `+` definition for `fixnum`.
 And now `add-typed`:
-```factor
+```asm
 00007f134c041c90: 89056a23f6fe    mov [rip-0x109dc96], eax
 00007f134c041c96: 53              push rbx
 00007f134c041c97: 498b06          mov rax, [r14]
