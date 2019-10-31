@@ -1,6 +1,7 @@
 title: "Dexter's Blog"
 description: ""
 show_downloads: false
+exclude: ["mold.yaml"]
 
 plugins:
   - jekyll-feed
