@@ -352,9 +352,16 @@ h1 a { text-decoration: none }
 }
 
 .top_links_toggle {
+  background: transparent;
+  border: 0;
+  padding: 0;
   color: var(--muted);
-  cursor: default;
+  cursor: pointer;
   user-select: none;
+  display: inline-block;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
 }
 
 .top_links_toggle::after {
@@ -401,7 +408,8 @@ h1 a { text-decoration: none }
 }
 
 .top_links_item:hover .top_links_menu,
-.top_links_item:focus-within .top_links_menu {
+.top_links_item:focus-within .top_links_menu,
+.top_links_item.open .top_links_menu {
   display: block;
 }
 
@@ -542,7 +550,7 @@ pre {
           {% for link in site.top_links %}
           {% if link.items %}
           <div class="top_links_item">
-            <span class="top_links_toggle">{{ link.label }}</span>
+            <button class="top_links_toggle" type="button" aria-expanded="false">{{ link.label }}</button>
             <ul class="top_links_menu">
               {% for item in link.items %}
               <li><a href="{{ item.url }}">{{ item.label }}</a></li>
@@ -571,5 +579,48 @@ pre {
         View on <a href="https://github.com/philipdexter/philipdexter.github.io">GitHub</a>
       </p>
     </div>
+    <script>
+      (function() {
+        var dropdowns = document.querySelectorAll(".top_links_item");
+        var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        function closeAll() {
+          dropdowns.forEach(function(d) {
+            d.classList.remove("open");
+            var t = d.querySelector(".top_links_toggle");
+            if (t) t.setAttribute("aria-expanded", "false");
+          });
+        }
+        dropdowns.forEach(function(d) {
+          var toggle = d.querySelector(".top_links_toggle");
+          if (!toggle) return;
+          toggle.addEventListener("click", function(e) {
+            e.preventDefault();
+            var isOpen = d.classList.contains("open");
+            closeAll();
+            if (!isOpen) {
+              d.classList.add("open");
+              toggle.setAttribute("aria-expanded", "true");
+            }
+          });
+          if (canHover) {
+            d.addEventListener("mouseenter", function() {
+              closeAll();
+              d.classList.add("open");
+              toggle.setAttribute("aria-expanded", "true");
+            });
+            d.addEventListener("mouseleave", function() {
+              d.classList.remove("open");
+              toggle.setAttribute("aria-expanded", "false");
+            });
+          }
+        });
+        document.addEventListener("click", function(e) {
+          if (!e.target.closest(".top_links_item")) closeAll();
+        });
+        document.addEventListener("keydown", function(e) {
+          if (e.key === "Escape") closeAll();
+        });
+      })();
+    </script>
   </body>
 </html>
