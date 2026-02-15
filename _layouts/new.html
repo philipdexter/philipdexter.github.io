@@ -407,10 +407,15 @@ h1 a { text-decoration: none }
   color: var(--fg);
 }
 
-.top_links_item:hover .top_links_menu,
 .top_links_item:focus-within .top_links_menu,
 .top_links_item.open .top_links_menu {
   display: block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .top_links_item:hover .top_links_menu {
+    display: block;
+  }
 }
 
 #toc_title {
@@ -583,6 +588,7 @@ pre {
       (function() {
         var dropdowns = document.querySelectorAll(".top_links_item");
         var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        var touchFirst = window.matchMedia("(hover: none), (pointer: coarse)").matches;
         function closeAll() {
           dropdowns.forEach(function(d) {
             d.classList.remove("open");
@@ -593,7 +599,8 @@ pre {
         dropdowns.forEach(function(d) {
           var toggle = d.querySelector(".top_links_toggle");
           if (!toggle) return;
-          toggle.addEventListener("click", function(e) {
+          var toggleEvent = touchFirst ? "pointerdown" : "click";
+          toggle.addEventListener(toggleEvent, function(e) {
             e.preventDefault();
             var isOpen = d.classList.contains("open");
             closeAll();
