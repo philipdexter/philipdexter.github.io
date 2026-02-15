@@ -14,7 +14,13 @@ top_links:
     url: https://philipdexter.bandcamp.com
   - label: github
     url: https://github.com/philipdexter
-  - label: skigame
-    url: https://phfilip.com/skigame
   - label: cv
     url: https://phfilip.com/cv
+  - label: misc.
+    items:
+      - label: vibe6 visualizer
+        url: https://phfilip.com/music/vibe6-visualizer.html
+      - label: skigame
+        url: https://phfilip.com/skigame
+      - label: build-a-lang
+        url: https://phfilip.com/build-a-lang/

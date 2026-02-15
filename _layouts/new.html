@@ -333,17 +333,76 @@ h1 a { text-decoration: none }
   text-transform: uppercase;
 }
 
+.top_links_item {
+  position: relative;
+}
+
 .top_links a {
   color: var(--muted);
   text-decoration: none;
   border: 0;
   margin: 0;
   padding: 0;
+  display: inline-block;
 }
 
 .top_links a:hover {
   color: var(--fg);
   text-decoration: none;
+}
+
+.top_links_toggle {
+  color: var(--muted);
+  cursor: default;
+  user-select: none;
+}
+
+.top_links_toggle::after {
+  content: " ▾";
+  font-size: 0.8em;
+}
+
+.top_links_menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: 180px;
+  padding: 0.55rem 0.7rem;
+  margin: 0;
+  list-style: none;
+  border: 1px solid rgba(0,245,255,.20);
+  background: rgba(0,0,0,.92);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset;
+  display: none;
+  z-index: 5;
+}
+
+.top_links_menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;
+  height: 8px;
+}
+
+.top_links_menu li + li {
+  margin-top: 0.5rem;
+}
+
+.top_links_menu a {
+  color: var(--muted);
+  display: block;
+}
+
+.top_links_menu a:hover {
+  color: var(--fg);
+}
+
+.top_links_item:hover .top_links_menu,
+.top_links_item:focus-within .top_links_menu {
+  display: block;
 }
 
 #toc_title {
@@ -377,6 +436,11 @@ h1 a { text-decoration: none }
     line-height: 1.8;
     flex-wrap: wrap;
     gap: 0.95rem;
+  }
+  .top_links_menu {
+    left: 0;
+    right: auto;
+    min-width: 150px;
   }
 }
 
@@ -476,7 +540,20 @@ pre {
         {% if site.top_links %}
         <nav class="top_links" aria-label="Top links">
           {% for link in site.top_links %}
-          <a href="{{ link.url }}">{{ link.label }}</a>
+          {% if link.items %}
+          <div class="top_links_item">
+            <span class="top_links_toggle">{{ link.label }}</span>
+            <ul class="top_links_menu">
+              {% for item in link.items %}
+              <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% else %}
+          <div class="top_links_item">
+            <a href="{{ link.url }}">{{ link.label }}</a>
+          </div>
+          {% endif %}
           {% endfor %}
         </nav>
         {% endif %}
