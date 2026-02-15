@@ -2,27 +2,90 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="alternate" type="application/atom+xml"  href="/feed.xml" />
     <title>
       {{ page.title }}
     </title>
     <style>
+    :root {
+      --bg: #06070a;
+      --fg: #e9f2ff;
+      --muted: rgba(233, 242, 255, 0.7);
+      --line: rgba(0, 245, 255, 0.25);
+      --card: rgba(0, 0, 0, 0.55);
+      --cyan: #00f5ff;
+      --magenta: #ff3bd4;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.35;
+      overflow-x: hidden;
+    }
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .fx {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .fx-scanlines {
+      opacity: 0.2;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0px,
+          rgba(255, 255, 255, 0) 3px,
+          rgba(255, 255, 255, 0.05) 4px,
+          rgba(255, 255, 255, 0) 6px
+        );
+      mix-blend-mode: overlay;
+    }
+    .fx-noise {
+      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      mix-blend-mode: overlay;
+    }
+    .fx-vignette {
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 65%, rgba(0, 0, 0, 0.75) 100%);
+      opacity: 0.95;
+    }
     .content {
-      margin: 40px auto;
-      max-width: 650px;
-      line-height: 1.6;
-      font-size: 18px;
-      color: #444;
-      padding: 0 10px;
-      background-color: white;
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      line-height: 1.35;
+      font-size: 1rem;
+      padding: 0 0 8px 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
     h1,h2,h3 {
       line-height: 1.2;
     }
-    body {
-         background: linear-gradient(45deg, #ffffff 0%,#ffffff 69.3%,#d36f88 69.3%,#d36f88 70.4%,#42c8b0 70.4%,#42c8b0 71.3%,#ffffff 71.3%);
+    p, li {
+      color: var(--fg);
     }
-    html { height: 100%; }
+    hr {
+      border: 0;
+      border-top: 2px solid var(--line);
+      margin: 22px 0;
+    }
     .highlight table td { padding: 5px; }
 
 .highlight table pre { margin: 0; }
@@ -147,56 +210,282 @@
 
 .highlight .w { color: #bbbbbb; }
 
-.highlight { background-color: #f8f8f8; }
+.highlight {
+  background-color: #f8f8f8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
 
-blockquote { color: #666; margin-bottom: 20px; padding: 0 0 0 20px; border-left: 3px solid #bbb; }
+blockquote { color: var(--muted); margin-bottom: 20px; padding: 0 0 0 20px; border-left: 3px solid rgba(255, 255, 255, 0.35); }
 
 pre { overflow: auto; }
 
-#project_title { font-family: monospace, monospace; color: #d36f88; text-shadow: #42c8b0 3px 3px 0px, #d36f88 4px 4px 0px; }
+.site_brand {
+  display: inline-block;
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  color: var(--fg);
+}
+
+.site_header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0 0.75rem;
+}
+
+#project_title {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.02;
+  color: #e9f2ff;
+  text-shadow: 0 0 0 transparent;
+}
+
+.site_subtitle {
+  margin: .4rem 0 1.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: rgba(233, 242, 255, 0.7);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.hero_header {
+  padding: 2.25rem 0 2.25rem;
+}
+
+#project_title::before,
+#project_title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .9;
+}
+
+#project_title::before {
+  transform: translate(6px, 2px);
+  color: var(--cyan);
+  mix-blend-mode: screen;
+  animation: glitchShift 2.2s infinite linear;
+}
+
+#project_title::after {
+  transform: translate(-6px, -2px);
+  color: var(--magenta);
+  mix-blend-mode: screen;
+  animation: glitchShift 1.7s infinite linear reverse;
+}
+
+@keyframes glitchShift{
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(6px,2px); }
+  10% { clip-path: inset(10% 0 68% 0); transform: translate(10px,1px); }
+  22% { clip-path: inset(55% 0 18% 0); transform: translate(4px,3px); }
+  38% { clip-path: inset(30% 0 40% 0); transform: translate(8px,0px); }
+  55% { clip-path: inset(70% 0 10% 0); transform: translate(6px,2px); }
+  70% { clip-path: inset(18% 0 60% 0); transform: translate(12px,2px); }
+  86% { clip-path: inset(40% 0 30% 0); transform: translate(5px,4px); }
+}
 
 #toc_container li, #toc_container ul li {list-style: outside none none !important}
 
+.post_card {
+  margin: 0 0 1rem 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(0,245,255,.20);
+  background: rgba(0,0,0,.25);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset;
+}
+
+.post_card h1 {
+  margin-top: 0;
+}
+
+.post_date {
+  margin: .25rem 0 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: rgba(233,242,255,.55);
+}
+
 h1 a { text-decoration: none }
 
-.top_links {
-  text-align: right;
-  margin: 10px 0 24px 0;
-  font-family: monospace, monospace;
-  font-size: 15px;
+  .top_links {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .top_links a {
-  color: #444;
+  color: var(--muted);
   text-decoration: none;
-  border-bottom: 2px solid #42c8b0;
-  margin-left: 12px;
-  padding-bottom: 1px;
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .top_links a:hover {
-  color: #d36f88;
-  border-bottom-color: #d36f88;
+  color: var(--fg);
+  text-decoration: none;
 }
 
+#toc_title {
+  color: var(--fg);
+}
+
+@media (max-width: 760px) {
+  .content {
+    width: min(1120px, calc(100% - 1rem));
+    padding: 0 0 6px 0;
+    font-size: 1rem;
+  }
+  .site_brand {
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+  }
+  .site_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+  #project_title {
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+  }
+  .site_subtitle {
+    margin: .4rem 0 1.35rem;
+    font-size: 1rem;
+  }
+  .top_links {
+    line-height: 1.8;
+    flex-wrap: wrap;
+    gap: 0.95rem;
+  }
+}
+
+/* Code block overrides for the dark theme */
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+pre {
+  background: #0b1020;
+  color: #dbeafe;
+  border: 1px solid rgba(0, 245, 255, 0.25);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.highlight,
+.highlight pre {
+  background: #0b1020 !important;
+  color: #dbeafe !important;
+}
+
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs,
+.highlight .cp {
+  color: #93a4c7 !important;
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt,
+.highlight .o,
+.highlight .ow {
+  color: #ff79c6 !important;
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .ss {
+  color: #a5f3fc !important;
+}
+
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo,
+.highlight .il {
+  color: #f9a8d4 !important;
+}
+
+.highlight .na,
+.highlight .nb,
+.highlight .nc,
+.highlight .nd,
+.highlight .ne,
+.highlight .nf,
+.highlight .nl,
+.highlight .nn,
+.highlight .nt,
+.highlight .nv,
+.highlight .bp {
+  color: #7dd3fc !important;
+}
+
+.highlight .err {
+  background-color: rgba(255, 59, 92, 0.18) !important;
+  color: #fecaca !important;
+}
 
     </style>
   </head>
   <body>
+    <div class="fx fx-noise" aria-hidden="true"></div>
+    <div class="fx fx-scanlines" aria-hidden="true"></div>
+    <div class="fx fx-vignette" aria-hidden="true"></div>
     <div class="content">
-      <a style="text-decoration: none;" href="{{site.url}}">
-        <h1 id="project_title">
-          Phffff=blog===
-        </h1>
-      </a>
-      <hr style="border: 2px solid black;">
-      {% if site.top_links %}
-      <nav class="top_links" aria-label="Top links">
-        {% for link in site.top_links %}
-        <a href="{{ link.url }}">{{ link.label }}</a>
-        {% endfor %}
-      </nav>
-      {% endif %}
+      <div class="site_header">
+        <a style="text-decoration: none;" href="{{site.url}}">
+          <div class="site_brand">PHILIP DEXTER</div>
+        </a>
+        {% if site.top_links %}
+        <nav class="top_links" aria-label="Top links">
+          {% for link in site.top_links %}
+          <a href="{{ link.url }}">{{ link.label }}</a>
+          {% endfor %}
+        </nav>
+        {% endif %}
+      </div>
+      <div class="hero_header">
+        <a style="text-decoration: none;" href="{{site.url}}">
+          <h1 id="project_title" data-text="BLOG">BLOG</h1>
+        </a>
+        <p class="site_subtitle">{{ site.blog_subtitle }}</p>
+      </div>
+      <hr>
       {{ content }}
       <hr>
       <p>

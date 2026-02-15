@@ -131,14 +131,15 @@ title: ''
     </ul>
   </ul>
 </div>
-<hr style="border: 2px solid black;">
+<hr>
 
 {% for post in site.posts %}
-<h1><a id="{{ post.title }}" href={{ post.url }}> 	📎 </a>{{ post.title }}</h1>
-  <p>{{ post.date | date_to_string }}</p>
+<article class="post_card">
+  <h1><a id="{{ post.title }}" href={{ post.url }}> 	📎 </a>{{ post.title }}</h1>
+  <p class="post_date">{{ post.date | date_to_string }}</p>
 
   {{ post.content }}
-  <hr>
+  </article>
 {% endfor %}
 
 <script type="text/x-mathjax-config">

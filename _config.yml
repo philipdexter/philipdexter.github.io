@@ -2,17 +2,18 @@ title: "Phffff=blog==="
 description: ""
 show_downloads: false
 exclude: ["mold.yaml"]
+blog_subtitle: "programming languages // distributed systems // music"
 
 plugins:
   - jekyll-feed
 
 top_links:
-  - label: github
-    url: https://github.com/philipdexter
   - label: music
     url: https://phfilip.com/music
   - label: bandcamp
     url: https://philipdexter.bandcamp.com
+  - label: github
+    url: https://github.com/philipdexter
   - label: skigame
     url: https://phfilip.com/skigame
   - label: cv
