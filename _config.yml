@@ -5,3 +5,15 @@ exclude: ["mold.yaml"]
 
 plugins:
   - jekyll-feed
+
+top_links:
+  - label: github
+    url: https://github.com/philipdexter
+  - label: music
+    url: https://phfilip.com/music
+  - label: bandcamp
+    url: https://philipdexter.bandcamp.com
+  - label: skigame
+    url: https://phfilip.com/skigame
+  - label: cv
+    url: https://phfilip.com/cv

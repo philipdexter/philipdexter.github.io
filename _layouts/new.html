@@ -159,6 +159,26 @@ pre { overflow: auto; }
 
 h1 a { text-decoration: none }
 
+.top_links {
+  text-align: right;
+  margin: 10px 0 24px 0;
+  font-family: monospace, monospace;
+  font-size: 15px;
+}
+
+.top_links a {
+  color: #444;
+  text-decoration: none;
+  border-bottom: 2px solid #42c8b0;
+  margin-left: 12px;
+  padding-bottom: 1px;
+}
+
+.top_links a:hover {
+  color: #d36f88;
+  border-bottom-color: #d36f88;
+}
+
 
     </style>
   </head>
@@ -170,6 +190,13 @@ h1 a { text-decoration: none }
         </h1>
       </a>
       <hr style="border: 2px solid black;">
+      {% if site.top_links %}
+      <nav class="top_links" aria-label="Top links">
+        {% for link in site.top_links %}
+        <a href="{{ link.url }}">{{ link.label }}</a>
+        {% endfor %}
+      </nav>
+      {% endif %}
       {{ content }}
       <hr>
       <p>
